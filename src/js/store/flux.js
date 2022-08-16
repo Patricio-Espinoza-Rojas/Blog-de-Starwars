@@ -12,7 +12,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			people: null,
+			vehicle: null,
+			planets: null,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,7 +40,76 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+
+			 getDataPeople: (Url) => {
+				fetch(Url, {
+				  method: "GET",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				})
+				  .then((response) => {
+					console.log(response);
+			
+					return response.json();
+				  })
+				  .then((data) => {
+					console.log(data);
+					setStore({people: data.results});
+				  })
+			
+				  .catch((error) => {
+					console.log("fallo la peticion");
+					console.log(error);
+				  });
+			  },
+
+			  getDataVehicle: (Url) => {
+				fetch(Url, {
+				  method: "GET",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				})
+				  .then((response) => {
+					console.log(response);
+			
+					return response.json();
+				  })
+				  .then((data) => {
+					console.log(data);
+					setStore({vehicle:data.results});
+				  })
+			
+				  .catch((error) => {
+					console.log("fallo la peticion");
+					console.log(error);
+				  });
+			  },
+
+			  getDataPlanets: (Url) => {
+				fetch(Url, {
+				  method: "GET",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				})
+				  .then((response) => {
+					console.log(response);
+			
+					return response.json();
+				  })
+				  .then((data) => {
+					console.log(data);
+					setStore({planets:data.results});
+				  })
+			
+				  .catch((error) => {
+					console.log("fallo la peticion");
+					console.log(error);
+				  });
+			  },
 		}
 	};
 };
