@@ -1,76 +1,40 @@
-import React, { useContext, useState } from "react";
-import { Context } from "../store/appContext";
+import React, { useState, useEffect, useContext } from 'react'
+import { Context } from '../store/appContext'
 
-export const Planets = () => {
-  // const getDataPlanets = (Url) => {
-  //   fetch(Url, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
+function Planets() {
+    const {store,actions} = useContext(Context)
+    return (
+        <>
+            <div className="container mt-4">
+                <div className="row row-cols-3 row-cols-md-4 g-2">
+                    {!!store.people && store.planets.map((planeta, i) => {
+                        return (
+                            <div className="col">
+                                <div className="card" key={i} style={{ width: "18rem" }}>
+                                    <img src="https://i.kym-cdn.com/entries/icons/original/000/000/157/itsatrap.jpg" className="card-img-top"></img>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{planeta.name}</h5>
+                                        <p className="card-text">
+                                            Population : {planeta.population} <br />
+                                            Climate : {planeta.climate} <br />
+                                            Gravity : {planeta.gravity}
+                                        </p>
+                                        <div className='d-flex justify-content-between'>
+                                            <button type='button' onClick={() => actions.addToFavorite(planeta.name)} className='btn btn-outline-warning'>
+                                                {store.favorites.includes(planeta.name) ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
+                                            </button>
 
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //       setPlanets(data.results);
-  //     })
+                                        </div>
 
-  //     .catch((error) => {
-  //       console.log("fallo la peticion");
-  //       console.log(error);
-  //     });
-  // };
-
-  const [planets, setPlanets] = useState(null);
-  function Test() {
-    console.log(store.planets);
-  }
-  function Test2() {
-    setPlanets("Hola cambie");
-  }
-
-  // React.useEffect(() => {
-  //   getDataPlanets("https://swapi.dev/api/planets/");
-  // }, []);
-
-  const { store, actions } = useContext(Context);
-
-  return (
-    <>
-
-      <div>
-        {!!store.planets&& store.planets.map((elemento,i)=> {
-            return ( 
-            <div className="card" style={{ width: "18rem" }}>
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">{elemento.name}</h5>
-              <p className="card-text">
-                Clima: {elemento.climate}
-                <br />
-                Diametro: {elemento.diameter}
-                <br />
-                Terreno: {elemento.terrain}
-                <br />
-                Gravedad: {elemento.gravity}
-                <br />
-                Periodo Orbital: {elemento.orbital_period}
-              </p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
-              <button onClick={() => { actions.favoritesFuncion(elemento.name)}}>Favoritos</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
-          </div>
-          )
-        })} 
-      </div>
-    </>
-  );
-};
+        </>
+    )
+}
 
-
+export default Planets

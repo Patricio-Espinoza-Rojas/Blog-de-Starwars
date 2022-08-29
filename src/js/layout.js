@@ -9,10 +9,12 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { Navbar2 } from "./component/navbar2";
-import { People } from "./component/people";
-import { Vehicle } from "./component/vehicle";
-import { Planets } from "./component/planets";
+
+/* My components */
+import Navbar2 from "./component/Navbar2"
+import People from "./component/People"
+import Planets from "./component/Planets"
+import Vehicles from "./component/vehicle";
 
 //create your first component
 const Layout = () => {
@@ -26,15 +28,6 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar2 />
 					<Switch>
-						<Route exact path= "/people">
-							< People />
-						</Route>
-						<Route exact path= "/vehicle">
-							< Vehicle />
-						</Route>
-						<Route exact path= "/planets">
-							< Planets />
-						</Route>
 						<Route exact path="/">
 							<Home />
 						</Route>
@@ -43,6 +36,15 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/people">
+							<People />
+						</Route>
+						<Route exact path="/planets">
+							<Planets />
+						</Route>
+						<Route exact path="/vehicles">
+							<Vehicles />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

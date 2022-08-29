@@ -13,9 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			people: null,
-			vehicle: null,
-			planets: null,
+			people : null,
+			vehicles : null,
+			planets : null,
 			favorites: [],
 		},
 		actions: {
@@ -42,88 +42,82 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-
-			 getDataPeople: (Url) => {
-				fetch(Url, {
-				  method: "GET",
-				  headers: {
-					"Content-Type": "application/json",
-				  },
-				})
-				  .then((response) => {
-					console.log(response);
-			
+			getPeopleData: (url) => {
+				fetch(
+					url,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						setStore({people : data.results});
+					})
+		
+					.catch((error) => {
+						console.log("fallo la peticion");
+						console.log(error);
+					});
+			},
+			getVehicleData: (url) => {
+				fetch(
+					url,
+					{
+						method : "GET",
+						headers: {
+							"Content-Type" : "application/json"
+						}
+					}
+				)
+				.then((response) => {
 					return response.json();
-				  })
-				  .then((data) => {
-					console.log(data);
-					setStore({people: data.results});
-				  })
-			
-				  .catch((error) => {
-					console.log("fallo la peticion");
-					console.log(error);
-				  });
-			  },
-
-			  getDataVehicle: (Url) => {
-				fetch(Url, {
-				  method: "GET",
-				  headers: {
-					"Content-Type": "application/json",
-				  },
 				})
-				  .then((response) => {
-					console.log(response);
-			
-					return response.json();
-				  })
-				  .then((data) => {
-					console.log(data);
-					setStore({vehicle:data.results});
-				  })
-			
-				  .catch((error) => {
-					console.log("fallo la peticion");
-					console.log(error);
-				  });
-			  },
-
-			  getDataPlanets: (Url) => {
-				fetch(Url, {
-				  method: "GET",
-				  headers: {
-					"Content-Type": "application/json",
-				  },
+				.then((data) => {
+					setStore({vehicles : data.results});
 				})
-				  .then((response) => {
-					console.log(response);
-			
-					return response.json();
-				  })
-				  .then((data) => {
-					console.log(data);
-					setStore({planets:data.results});
-				  })
-			
-				  .catch((error) => {
-					console.log("fallo la peticion");
-					console.log(error);
-				  });
-			  },
-			
-			  favoritesFuncion: (name) => { 
-				const store = getStore()
-				const favorites = store.favorites
-				if (favorites.includes(name)){
-					favorites.splice(favorites.indexOf(name),1)
+				.catch((error)=>{
+					console.log("Error en la petición!");
+					console.log(error)
+				})
+			},
+			getPlanetData : (url) => {
+				fetch(
+					url,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json"
+						}
+					}
+				)
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						setStore({planets : data.results});
+					})
+					.catch((error) => {
+						console.log("Error en la petición!");
+						console.log(error);
+					})
+			},
+			addToFavorite : (current) => {
+				const store = getStore();
+				const favoritesArray = store.favorites
+				//Add to favorite
+				if (favoritesArray.includes(current)){
+					favoritesArray.splice(favoritesArray.indexOf(current),1)
 				}else{
-					favorites.push(name)
+					favoritesArray.push(current)
 				}
-				setStore({favorites: favorites})
+				setStore({favorites: favoritesArray})
 				console.log(store.favorites)
-
-			  }
+			},
 		}
 	};
 };
