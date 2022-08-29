@@ -16,6 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			people: null,
 			vehicle: null,
 			planets: null,
+			favorites: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -110,6 +111,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				  });
 			  },
+			
+			  favoritesFuncion: (name) => { 
+				const store = getStore()
+				const favorites = store.favorites
+				if (favorites.includes(name)){
+					favorites.splice(favorites.indexOf(name),1)
+				}else{
+					favorites.push(name)
+				}
+				setStore({favorites: favorites})
+				console.log(store.favorites)
+
+			  }
 		}
 	};
 };

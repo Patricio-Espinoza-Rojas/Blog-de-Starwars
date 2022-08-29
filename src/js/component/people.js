@@ -40,8 +40,6 @@ const { store, actions } = useContext(Context);
 
   return (
     <>
-      <button onClick={Test2}>Cambiar data</button>
-      <button onClick={Test}> hola soy test </button>
       <div>
         {!!store.people&& store.people.map((elemento,i)=> {
             return ( <div className="card" style={{ width: "18rem" }}>
@@ -58,6 +56,7 @@ const { store, actions } = useContext(Context);
               <a href="#" className="btn btn-primary">
                 Go somewhere
               </a>
+              <button onClick={() => { actions.favoritesFuncion(elemento.name)}}>Favoritos</button>
             </div>
           </div>
           )

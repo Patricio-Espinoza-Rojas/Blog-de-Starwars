@@ -41,8 +41,7 @@ export const Planets = () => {
 
   return (
     <>
-      <button onClick={Test2}>Cambiar data</button>
-      <button onClick={Test}> hola soy test </button>
+
       <div>
         {!!store.planets&& store.planets.map((elemento,i)=> {
             return ( 
@@ -64,6 +63,7 @@ export const Planets = () => {
               <a href="#" className="btn btn-primary">
                 Go somewhere
               </a>
+              <button onClick={() => { actions.favoritesFuncion(elemento.name)}}>Favoritos</button>
             </div>
           </div>
           )
